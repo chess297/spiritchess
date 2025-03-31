@@ -27,6 +27,9 @@ type (
 	}
 )
 
+@server (
+	prefix: /api/v1
+)
 service User {
 	@handler Register
 	post /user/register (RegisterReq) returns (RegisterResp)
@@ -42,6 +45,9 @@ type (
 	}
 )
 
+@server (
+	prefix: /api/v1
+)
 service User {
 	@handler Logout
 	post /user/logout
