@@ -8,7 +8,8 @@ ENV CGO_ENABLED 0
 RUN apk update --no-cache && apk add --no-cache tzdata
 
 WORKDIR /build
-
+ENV GO111MODULE=on
+ENV GOPROXY=https://goproxy.cn
 ADD go.mod .
 ADD go.sum .
 RUN go mod download
