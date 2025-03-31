@@ -1,0 +1,52 @@
+syntax = "v1"
+
+// goctl api go --api ./user.api --dir . --style go_zero
+type (
+	RegisterReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	RegisterResp {
+		Id       string `json:"id"`
+		Username string `json:"username"`
+		Token    string `json:"token"`
+		ExpireAt string `json:"expireAt"`
+	}
+)
+
+type (
+	LoginReq {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	LoginResp {
+		Id       string `json:"id"`
+		Username string `json:"username"`
+		Token    string `json:"token"`
+		ExpireAt string `json:"expireAt"`
+	}
+)
+
+service User {
+	@handler Register
+	post /user/register (RegisterReq) returns (RegisterResp)
+
+	@handler Login
+	post /user/login (LoginReq) returns (LoginResp)
+}
+
+type (
+	GetUserInfoResp {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+)
+
+service User {
+	@handler Logout
+	post /user/logout
+
+	@handler GetUserInfo
+	get /user/info returns (GetUserInfoResp)
+}
+

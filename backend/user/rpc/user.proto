@@ -1,0 +1,38 @@
+// 声明 proto 语法版本，固定值
+syntax = "proto3";
+
+// proto 包名
+package user;
+
+// 生成 golang 代码后的包名
+option go_package = "/pb/user";
+
+// goctl rpc protoc user.proto --go_out=. --go-grpc_out=. --zrpc_out=. --client=true --style go_zero
+
+// 定义结构体
+
+message Base{
+    int32 code = 1;
+    string msg = 2;
+}
+
+message UserInfo {
+    string id = 1;
+    string username =2;
+}
+
+// 定义请求体
+message GetUserInfoReq {
+    string id = 1;
+}
+// 定义响应体
+message GetUserInfoResp {
+    Base Base = 1;
+    UserInfo data = 2;
+}
+
+// 定义 User 服务
+service User {
+  // 定义一个 GetUserInfo 一元 rpc 方法，请求体和响应体必填。
+  rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp);
+}
