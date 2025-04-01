@@ -28,3 +28,9 @@ func (s *UserServer) GetUserInfo(ctx context.Context, in *user.GetUserInfoReq) (
 	l := logic.NewGetUserInfoLogic(ctx, s.svcCtx)
 	return l.GetUserInfo(in)
 }
+
+// 定义一个 CreateUser 一元 rpc 方法，请求体和响应体必填。
+func (s *UserServer) CreateUser(ctx context.Context, in *user.CreateUserReq) (*user.CreateUserResp, error) {
+	l := logic.NewCreateUserLogic(ctx, s.svcCtx)
+	return l.CreateUser(in)
+}

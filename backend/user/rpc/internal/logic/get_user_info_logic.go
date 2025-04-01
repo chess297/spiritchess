@@ -25,12 +25,12 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 
 // 定义一个 GetUserInfo 一元 rpc 方法，请求体和响应体必填。
 func (l *GetUserInfoLogic) GetUserInfo(in *user.GetUserInfoReq) (*user.GetUserInfoResp, error) {
-	// todo: add your logic here and delete this line
+	u, err := l.svcCtx.UserModel.FindOneByUid(l.ctx, in.Id)
+	if err != nil {
+		return nil, err
+	}
 	return &user.GetUserInfoResp{
-		Data: &user.UserInfo{
-			// username
-			Id:       "id",
-			Username: "username",
-		},
+		Id:       u.Uid,
+		Username: u.Username,
 	}, nil
 }

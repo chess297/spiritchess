@@ -17,7 +17,7 @@ type LoginResp struct {
 	Id       string `json:"id"`
 	Username string `json:"username"`
 	Token    string `json:"token"`
-	ExpireAt string `json:"expireAt"`
+	ExpireAt int    `json:"expireAt"`
 }
 
 type RegisterReq struct {
@@ -29,5 +29,5 @@ type RegisterResp struct {
 	Id       string `json:"id"`
 	Username string `json:"username"`
 	Token    string `json:"token"`
-	ExpireAt string `json:"expireAt"`
+	ExpireAt int    `json:"expireAt"`
 }

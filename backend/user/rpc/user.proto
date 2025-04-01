@@ -27,12 +27,25 @@ message GetUserInfoReq {
 }
 // 定义响应体
 message GetUserInfoResp {
-    Base Base = 1;
-    UserInfo data = 2;
+    string id = 1;
+    string username = 2;
+}
+
+message CreateUserReq {
+    string username = 1;
+    string password = 2;
+}
+
+message CreateUserResp {
+    bool success = 1;
+    string message = 2;
+    string uid = 3;
 }
 
 // 定义 User 服务
 service User {
   // 定义一个 GetUserInfo 一元 rpc 方法，请求体和响应体必填。
   rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoResp);
+  // 定义一个 CreateUser 一元 rpc 方法，请求体和响应体必填。
+  rpc CreateUser(CreateUserReq) returns (CreateUserResp);
 }

@@ -15,6 +15,8 @@ import (
 
 type (
 	Base            = user.Base
+	CreateUserReq   = user.CreateUserReq
+	CreateUserResp  = user.CreateUserResp
 	GetUserInfoReq  = user.GetUserInfoReq
 	GetUserInfoResp = user.GetUserInfoResp
 	UserInfo        = user.UserInfo
@@ -22,6 +24,8 @@ type (
 	User interface {
 		// 定义一个 GetUserInfo 一元 rpc 方法，请求体和响应体必填。
 		GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error)
+		// 定义一个 CreateUser 一元 rpc 方法，请求体和响应体必填。
+		CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error)
 	}
 
 	defaultUser struct {
@@ -39,4 +43,10 @@ func NewUser(cli zrpc.Client) User {
 func (m *defaultUser) GetUserInfo(ctx context.Context, in *GetUserInfoReq, opts ...grpc.CallOption) (*GetUserInfoResp, error) {
 	client := user.NewUserClient(m.cli.Conn())
 	return client.GetUserInfo(ctx, in, opts...)
+}
+
+// 定义一个 CreateUser 一元 rpc 方法，请求体和响应体必填。
+func (m *defaultUser) CreateUser(ctx context.Context, in *CreateUserReq, opts ...grpc.CallOption) (*CreateUserResp, error) {
+	client := user.NewUserClient(m.cli.Conn())
+	return client.CreateUser(ctx, in, opts...)
 }
