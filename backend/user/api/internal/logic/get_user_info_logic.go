@@ -7,6 +7,7 @@ import (
 	"user/rpc/user_client"
 
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/x/errors"
 )
 
 type GetUserInfoLogic struct {
@@ -24,10 +25,8 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 }
 
 func (l *GetUserInfoLogic) GetUserInfo() (resp *user_client.GetUserInfoResp, err error) {
-	// todo: add your logic here and delete this line
-	// uc:= userclient.NewUser()
 	uInfo, err := l.svcCtx.UserRpcClient.GetUserInfo(l.ctx, &user_client.GetUserInfoReq{
 		Id: "id",
 	})
-	return uInfo, err
+	return uInfo, errors.New(400, err.Error())
 }
