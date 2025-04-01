@@ -29,5 +29,5 @@ COPY --from=builder /app/user /app/user
 COPY ./rpc/etc /app/etc
 
 
-CMD ["./user", "-f", "etc/user.yaml"]
+CMD ["./user", "-f", "etc/config.yaml"]
 

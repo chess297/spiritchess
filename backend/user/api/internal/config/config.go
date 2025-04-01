@@ -21,12 +21,15 @@ type Config struct {
 		AccessSecret string
 		AccessExpire int
 	}
+	Etcd struct {
+		Host string
+	}
 }
 
 func (c *Config) Sub() {
 	ss := subscriber.MustNewEtcdSubscriber(subscriber.EtcdConf{
-		Hosts: []string{"0.0.0.0:2379"}, // etcd 地址
-		Key:   "test",                   // 配置key
+		Hosts: []string{c.Etcd.Host}, // etcd 地址
+		Key:   "test",                // 配置key
 	})
 	cc := configurator.MustNewConfigCenter[TestSt](configurator.Config{
 		Type: "json", // 配置值类型：json,yaml,toml
@@ -35,7 +38,7 @@ func (c *Config) Sub() {
 	// 注意: 配置如果发生变更，调用的结果永远获取到最新的配置
 	cfg, err := cc.GetConfig()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	// 打印配置
 	fmt.Println(cfg)
