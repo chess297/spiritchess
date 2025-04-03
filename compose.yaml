@@ -1,0 +1,26 @@
+services:
+  nginx:
+    depends_on:
+      - user-api
+    environment:
+      - PROXY_DIR=proxy_spiritchess
+  user-api:
+    build:
+      context: ./spiritchess/backend/user
+      dockerfile: Dockerfile_api
+    restart: always
+    depends_on:
+      - user-rpc
+    networks:
+      - single-deploy
+  user-rpc:
+    build:
+      context: ./spiritchess/backend/user
+      dockerfile: Dockerfile_rpc
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+      - etcd
+    networks:
+      - single-deploy
